@@ -4,7 +4,7 @@ import {
   Injectable,
   ForbiddenException,
 } from '@nestjs/common';
-import { UserRole } from 'generated/prisma';
+import { UserRole } from '@prisma/client';
 
 @Injectable()
 export class UpdateUserGuard implements CanActivate {

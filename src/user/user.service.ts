@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DatabaseService } from 'src/database/database.service';
 import { hashSecret } from '../common/utils/hash-secret.util';
-import { UserRole } from 'generated/prisma';
+import { UserRole } from '@prisma/client';
 import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
