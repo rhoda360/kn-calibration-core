@@ -1,20 +1,20 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { verifySecret } from '../common/utils/verify-secret.util';
 import { JwtService } from '@nestjs/jwt';
-import { omit } from 'src/common/utils/omit.util';
+import { omit } from '../common/utils/omit.util';
 import { AuthJwtPayload } from './types/auth-jwtPayload';
 import refreshJwtConfig from './config/refresh-jwt.config';
 import { ConfigType } from '@nestjs/config';
-import { hashSecret } from 'src/common/utils/hash-secret.util';
+import { hashSecret } from '../common/utils/hash-secret.util';
 import { CurrentUser } from './types/current-user';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { randomInt } from 'crypto';
-import { TokenService } from 'src/token/token.service';
-import { MailService } from 'src/mail/mail.service';
+import { TokenService } from '../token/token.service';
+import { MailService } from '../mail/mail.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {

@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import mailerConfig from './config/mailer.config';
 import { ConfigType } from '@nestjs/config';
-import { capitalizeWords } from 'src/common/utils/capitalize-word.util';
+import { capitalizeWords } from '../common/utils/capitalize-word.util';
 
 @Injectable()
 export class MailService {

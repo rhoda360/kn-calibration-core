@@ -15,9 +15,9 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRole } from '@prisma/client';
-import { Roles } from 'src/common/decorators/role.decorator';
-import { UpdateUserGuard } from 'src/auth/guards/update-user/update-user.guard';
-import { Public } from 'src/common/decorators/public.decorator';
+import { Roles } from '../common/decorators/role.decorator';
+import { UpdateUserGuard } from '../auth/guards/update-user/update-user.guard';
+import { Public } from '../common/decorators/public.decorator';
 
 @Controller('users')
 export class UserController {
