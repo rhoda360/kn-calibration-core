@@ -33,17 +33,17 @@ async function bootstrap() {
 
   // Enable Swagger documentation
   const config = new DocumentBuilder()
-    .setTitle('FaRS - Financial Reconciliation Software')
+    .setTitle('Calib - Calibration Software')
     .setDescription(
-      'FaRS is a financial reconciliation system designed to help businesses manage multi-bank, multi-currency transactions, classify data, and perform contract-specific analysis. It includes features like real-time notifications, role-based permissions, and CSV uploads for transaction tracking.',
+      'Calib is a calibration management system designed to help construction professionals manage and track calibration processes efficiently.',
     )
     .setVersion('1.0')
-    .addTag('fars')
+    .addTag('calibration')
     .addBearerAuth()
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/doc', app, documentFactory);
+  SwaggerModule.setup('docs', app, documentFactory);
 
   await app.listen(process.env.PORT ?? 3000);
 }

@@ -20,7 +20,6 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -68,16 +67,19 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(RefreshAuthGuard)
   @Post('refresh')
+  @ApiBearerAuth()
   async refresh(@Request() req: RequestWithUser) {
     return await this.authService.refreshToken(req.user.id);
   }
 
   @Get('profile')
+  @ApiBearerAuth()
   async findProfile(@Request() req: RequestWithUser) {
     return await this.authService.findProfile(req.user.id);
   }
 
   @Patch('change-password')
+  @ApiBearerAuth()
   async changePassword(
     @Request() req: RequestWithUser,
     @Body() changePasswordDto: ChangePasswordDto,
