@@ -1,6 +1,6 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { RequestMethod, ValidationPipe } from '@nestjs/common';
 import { corsOptions } from './common/config/corsOptions';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 
@@ -23,7 +23,12 @@ async function bootstrap() {
     }),
   );
   app.enableCors(corsOptions);
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api', {
+    exclude: [
+      { path: '/', method: RequestMethod.ALL },
+      { path: '/health', method: RequestMethod.ALL },
+    ],
+  });
 
   await app.listen(process.env.PORT ?? 3000);
 }
