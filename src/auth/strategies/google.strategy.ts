@@ -4,6 +4,7 @@ import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import googleOauthConfig from '../config/google-oauth.config';
 import { ConfigType } from '@nestjs/config';
 import { AuthService } from '../auth.service';
+import { UserRole } from '@prisma/client';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
@@ -27,6 +28,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       lastName: profile.name.familyName,
       username: profile.emails[0].value.split('@')[0], // Use email prefix as username
       email: profile.emails[0].value,
+      role: UserRole.CLIENT,
       avatarUrl: profile.photos ? profile.photos[0].value : null,
       password: '',
     };

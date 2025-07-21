@@ -15,6 +15,9 @@ import { TokenService } from '../token/token.service';
 import { MailService } from '../mail/mail.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { OtpService } from 'src/otp/otp.service';
+import { CreateOtpDto } from 'src/otp/dto/create-otp.dto';
+import { VerifyOtpDto } from 'src/otp/dto/verify-otp.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +26,7 @@ export class AuthService {
     private readonly mailService: MailService,
     private readonly jwtService: JwtService,
     private readonly tokenService: TokenService,
+    private readonly otpService: OtpService,
     @Inject(refreshJwtConfig.KEY)
     private readonly refreshJwtConfiguration: ConfigType<
       typeof refreshJwtConfig
@@ -94,6 +98,16 @@ export class AuthService {
     );
 
     return { id: createdUser.id };
+  }
+
+  // Send OTP to the user's email
+  async sendOTP(sendOtpDto: CreateOtpDto) {
+    return await this.otpService.createOTP(sendOtpDto);
+  }
+
+  // Verify the OTP sent to the user's email
+  async verifyOTP(verifyOtpDto: VerifyOtpDto) {
+    return await this.otpService.validateOTP(verifyOtpDto);
   }
 
   async login(userId: string) {

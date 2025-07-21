@@ -19,6 +19,8 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { CreateOtpDto } from 'src/otp/dto/create-otp.dto';
+import { VerifyOtpDto } from 'src/otp/dto/verify-otp.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -70,6 +72,21 @@ export class AuthController {
   @ApiBearerAuth()
   async refresh(@Request() req: RequestWithUser) {
     return await this.authService.refreshToken(req.user.id);
+  }
+
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('send-otp')
+  @ApiBearerAuth()
+  async sendOTP(@Body() createOtpDto: CreateOtpDto) {
+    return await this.authService.sendOTP(createOtpDto);
+  }
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('verify-otp')
+  @ApiBearerAuth()
+  async verifyOTP(@Body() verifyOTPDto: VerifyOtpDto) {
+    return await this.authService.verifyOTP(verifyOTPDto);
   }
 
   @Get('profile')

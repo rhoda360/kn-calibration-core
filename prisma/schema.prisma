@@ -51,8 +51,22 @@ model User {
   // 👤 User that deactivated this user
   deactivatedBy User?      @relation("UserDeactivatedBy", fields: [deactivatedById], references: [id])
   deactivatedUsers User[]  @relation("UserDeactivatedBy")  // Users this user deactivated
+  Client Client[]
 
   @@map("users")
+}
+
+model Client {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  email     String   @unique
+  companyName String
+  address  String?
+  rcNumber String?   @unique 
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("clients")
 }
 
 model Token {
@@ -67,4 +81,17 @@ model Token {
 
   @@map("tokens")
   @@index([userId])
+}
+
+model OneTimePassword {
+  id        String   @id @default(uuid())
+  otp       String   @unique
+  email     String
+  isVerified Boolean @default(false)
+  expiresIn DateTime 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([otp, email])
+  @@map("otps")
 }

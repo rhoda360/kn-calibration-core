@@ -8,8 +8,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DatabaseService } from '../database/database.service';
 import { hashSecret } from '../common/utils/hash-secret.util';
-import { UserRole } from '@prisma/client';
+import { Prisma, PrismaClient, UserRole } from '@prisma/client';
 import { MailService } from '../mail/mail.service';
+import { generateUserName } from 'src/utils/create-username.util';
 
 @Injectable()
 export class UserService {
@@ -19,8 +20,46 @@ export class UserService {
   ) {}
   async create(createUserDto: CreateUserDto) {
     try {
+      // Check if the user already exists in both the user and client tables
+      const userExists = await this.databaseService.$transaction(
+        async (prisma) => {
+          const user = await prisma.user.findUnique({
+            where: {
+              email: createUserDto.email,
+            },
+          });
+          const client = await prisma.client.findUnique({
+            where: {
+              email: createUserDto.email,
+            },
+          });
+          return user || client;
+        },
+      );
+
+      if (userExists) {
+        throw new ConflictException('User with this email already exists');
+      }
+
+      // Generate a unique username
+      let username = '';
+
+      // Keep trying until we generate a username that doesn't exist
+      while (true) {
+        const candidate = generateUserName(createUserDto.role.toUpperCase());
+        const existing = await this.databaseService.user.findUnique({
+          where: { username: candidate },
+        });
+
+        if (!existing) {
+          username = candidate;
+          break;
+        }
+      }
+
       // Save password
       const password = createUserDto.password;
+
       // Make sure password is hashed before saving to the database
       if (createUserDto.password) {
         const hashedPassword = await hashSecret(createUserDto.password);
@@ -30,6 +69,7 @@ export class UserService {
       const createdUser = await this.databaseService.user.create({
         data: {
           ...createUserDto,
+          username,
         },
         select: {
           id: true,
@@ -65,6 +105,63 @@ export class UserService {
       }
       throw new BadRequestException('Failed to create user');
     }
+  }
+
+  async createWithTx(
+    prisma: PrismaClient | Prisma.TransactionClient,
+    createUserDto: CreateUserDto,
+  ) {
+    // Check if the user already exists in both the user and client tables
+    const userExists = await this.databaseService.$transaction(
+      async (prisma) => {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: createUserDto.email,
+          },
+        });
+        const client = await prisma.client.findUnique({
+          where: {
+            email: createUserDto.email,
+          },
+        });
+        return user || client;
+      },
+    );
+
+    if (userExists) {
+      throw new ConflictException('User with this email already exists');
+    }
+
+    // Generate a unique username
+    let username = '';
+
+    // Keep trying until we generate a username that doesn't exist
+    while (true) {
+      const candidate = generateUserName(createUserDto.role.toUpperCase());
+      const existing = await this.databaseService.user.findUnique({
+        where: { username: candidate },
+      });
+
+      if (!existing) {
+        username = candidate;
+        break;
+      }
+    }
+
+    // Save password
+    const password = createUserDto.password;
+
+    // Make sure password is hashed before saving to the database
+    if (createUserDto.password) {
+      const hashedPassword = await hashSecret(createUserDto.password);
+      createUserDto.password = hashedPassword;
+    }
+
+    const data = { ...createUserDto, username };
+
+    // Create the user with the provided data
+
+    return await prisma.user.create({ data });
   }
 
   async findAll(role?: UserRole) {
