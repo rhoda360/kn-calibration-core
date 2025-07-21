@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "vercel-build": "npm run build",
   "builds": [
     {
       "src": "dist/main.js",
