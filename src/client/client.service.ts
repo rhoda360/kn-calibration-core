@@ -6,10 +6,10 @@ import {
 } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { DatabaseService } from 'src/database/database.service';
+import { DatabaseService } from '../database/database.service';
 import { UserRole } from '@prisma/client';
-import { UserService } from 'src/user/user.service';
-import { MailService } from 'src/mail/mail.service';
+import { UserService } from '../user/user.service';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class ClientService {

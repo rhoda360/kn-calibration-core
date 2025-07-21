@@ -19,8 +19,8 @@ import { TokenModule } from '../token/token.module';
 import { MailModule } from '../mail/mail.module';
 import googleOauthConfig from './config/google-oauth.config';
 import { GoogleStrategy } from './strategies/google.strategy';
-import { OtpModule } from 'src/otp/otp.module';
-import { OtpService } from 'src/otp/otp.service';
+import { OtpModule } from '../otp/otp.module';
+import { OtpService } from '../otp/otp.service';
 
 @Module({
   imports: [

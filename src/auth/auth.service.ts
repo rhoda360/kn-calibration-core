@@ -15,9 +15,9 @@ import { TokenService } from '../token/token.service';
 import { MailService } from '../mail/mail.service';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { OtpService } from 'src/otp/otp.service';
-import { CreateOtpDto } from 'src/otp/dto/create-otp.dto';
-import { VerifyOtpDto } from 'src/otp/dto/verify-otp.dto';
+import { OtpService } from '../otp/otp.service';
+import { CreateOtpDto } from '../otp/dto/create-otp.dto';
+import { VerifyOtpDto } from '../otp/dto/verify-otp.dto';
 
 @Injectable()
 export class AuthService {
