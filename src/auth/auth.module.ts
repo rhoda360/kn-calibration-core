@@ -19,11 +19,14 @@ import { TokenModule } from '../token/token.module';
 import { MailModule } from '../mail/mail.module';
 import googleOauthConfig from './config/google-oauth.config';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { OtpModule } from 'src/otp/otp.module';
+import { OtpService } from 'src/otp/otp.service';
 
 @Module({
   imports: [
     DatabaseModule,
     UserModule,
+    OtpModule,
     PassportModule,
     TokenModule,
     MailModule,
@@ -36,6 +39,7 @@ import { GoogleStrategy } from './strategies/google.strategy';
   providers: [
     AuthService,
     UserService,
+    OtpService,
     LocalStrategy,
     JwtStrategy,
     RefreshJwtStrategy,

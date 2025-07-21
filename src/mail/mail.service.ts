@@ -120,6 +120,82 @@ export class MailService {
     await this.transporter.sendMail(mailOptions);
   }
 
+  async sendClientCreationEmail(
+    to: string,
+    firstName: string,
+    email: string,
+    role: string,
+    password: string,
+  ) {
+    const mailOptions = {
+      from: `"Koonage Infotec Team" <${this.mailerConfiguration.user}>`,
+      to,
+      subject: `Your ${capitalizeWords(role)} Calibration System Account Has Been Created`,
+      html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #eee; border-radius: 8px;">
+        <h2 style="color: #0d6efd; text-align: center;">Welcome to Calibration System!</h2>
+
+        <p>Hello ${firstName},</p>
+
+        <p>
+          An account has been created for you on the calibration system with the user name <strong>${firstName}</strong>.
+        </p>
+
+        <p>You can now log in using the following credentials:</p>
+
+        <div style="background: #f8f9fa; padding: 16px; font-size: 16px; border: 1px dashed #0d6efd; border-radius: 4px; margin: 20px 0;">
+          <p><strong>Login URL:</strong> <a href="https://calibration.com/login" style="color: #0d6efd;">calibration.com/login</a></p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Password:</strong> ${password}</p>
+        </div>
+
+        <p style="color: #dc3545;"><strong>Please change your password after logging in for security reasons.</strong></p>
+
+        <p>If you have any questions or concerns, feel free to contact the support team.</p>
+
+        <hr style="margin: 24px 0;">
+        <p style="font-size: 12px; color: #6c757d;">
+          This message was sent by Koonage Infotec's secure account management system. If you did not expect this email, please ignore it.
+        </p>
+        <p style="font-size: 12px; color: #6c757d;">© ${new Date().getFullYear()} Koonage Infotec. All rights reserved.</p>
+      </div>`,
+    };
+
+    await this.transporter.sendMail(mailOptions);
+  }
+
+  async sendVerificationCodeEmail(to: string, firstName: string, code: string) {
+    const mailOptions = {
+      from: `"Koonage Infotec Team" <${this.mailerConfiguration.user}>`,
+      to,
+      subject: 'Email Verification Code - Koonage Calibration System',
+      html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 24px; border: 1px solid #eee; border-radius: 8px;">
+      <h2 style="color: #0d6efd; text-align: center;">Verify Your Email</h2>
+
+      <p>Hello ${firstName},</p>
+
+      <p>
+        To complete your registration with the Calibration System, please use the verification code below:
+      </p>
+
+      <div style="background: #f1f1f1; padding: 20px; text-align: center; font-size: 32px; letter-spacing: 8px; font-weight: bold; color: #0d6efd; border-radius: 6px; margin: 20px 0;">
+        ${code}
+      </div>
+
+      <p>This code will expire in 10 minutes. If you did not request this, please ignore this email.</p>
+
+      <hr style="margin: 24px 0;">
+      <p style="font-size: 12px; color: #6c757d;">
+        This message was sent by Koonage Infotec's secure verification system. If you did not expect this email, please disregard it.
+      </p>
+      <p style="font-size: 12px; color: #6c757d;">© ${new Date().getFullYear()} Koonage Infotec. All rights reserved.</p>
+    </div>`,
+    };
+
+    await this.transporter.sendMail(mailOptions);
+  }
+
   async sendWelcomeEmail(to: string, firstName: string, role: string) {
     const mailOptions = {
       from: `"Koonage Infotec Team" <${this.mailerConfiguration.user}>`,

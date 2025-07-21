@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { ClientModule } from './client/client.module';
+import { OtpModule } from './otp/otp.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { APP_GUARD } from '@nestjs/core';
       },
     ]),
     AuthModule,
+    ClientModule,
+    OtpModule,
   ],
   controllers: [AppController],
   providers: [

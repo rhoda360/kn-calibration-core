@@ -1,3 +1,5 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { UserRole } from '@prisma/client';
 import {
   IsBoolean,
   IsEmail,
@@ -8,10 +10,17 @@ import {
   Matches,
   MinLength,
 } from 'class-validator';
-import { UserRole } from '@prisma/client';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class CreateUserDto {
+export class CreateClientDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @ApiProperty({
+    description: 'Company name of the user',
+    example: 'Tech Corp',
+  })
+  companyName: string;
+
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
@@ -57,6 +66,22 @@ export class CreateUserDto {
 
   @IsString()
   @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Company registration number',
+    example: 'RC123456',
+  })
+  rcNumber?: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiPropertyOptional({
+    description: 'Company address',
+    example: '123 Tech Street, Silicon Valley',
+  })
+  address?: string;
+
+  @IsString()
+  @IsOptional()
   @Matches(/^(?:0|\+234)(7|8|9)[01]\d{8}$/, {
     message: 'Phone number must be a valid Nigerian mobile number',
   })
@@ -68,13 +93,14 @@ export class CreateUserDto {
   phone?: string;
 
   @IsEnum(UserRole, { message: 'Valid role required' })
-  @ApiProperty({
+  @IsOptional()
+  @ApiPropertyOptional({
     description: 'Role of the user',
     enum: UserRole,
-    example: UserRole.AGENT,
+    example: UserRole.CLIENT,
     required: false,
   })
-  role: UserRole;
+  role?: UserRole;
 
   @IsString()
   @IsOptional()
