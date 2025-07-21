@@ -1,9 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateOtpDto } from './dto/create-otp.dto';
-import { DatabaseService } from 'src/database/database.service';
-import { generate } from 'rxjs';
-import { generateOTP } from 'src/utils/create-otp.util';
-import { MailService } from 'src/mail/mail.service';
+import { DatabaseService } from '../database/database.service';
+import { generateOTP } from '../utils/create-otp.util';
+import { MailService } from '../mail/mail.service';
 import { VerifyOtpDto } from './dto/verify-otp.dto';
 
 @Injectable()

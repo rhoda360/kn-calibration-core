@@ -10,7 +10,7 @@ import { DatabaseService } from '../database/database.service';
 import { hashSecret } from '../common/utils/hash-secret.util';
 import { Prisma, PrismaClient, UserRole } from '@prisma/client';
 import { MailService } from '../mail/mail.service';
-import { generateUserName } from 'src/utils/create-username.util';
+import { generateUserName } from '../utils/create-username.util';
 
 @Injectable()
 export class UserService {
