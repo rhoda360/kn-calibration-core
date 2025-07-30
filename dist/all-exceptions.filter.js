@@ -37,7 +37,7 @@ let AllExceptionsFilter = AllExceptionsFilter_1 = class AllExceptionsFilter exte
             myResponseObject.response = 'Internal Server Error';
         }
         response.status(myResponseObject.statusCode).json(myResponseObject);
-        this.logger.error(myResponseObject.response, AllExceptionsFilter_1.name);
+        this.logger.error(exception, AllExceptionsFilter_1.name);
         super.catch(exception, host);
     }
 };

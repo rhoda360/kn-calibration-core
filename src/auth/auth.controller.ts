@@ -19,8 +19,8 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { GoogleAuthGuard } from './guards/google-auth/google-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { CreateOtpDto } from 'src/otp/dto/create-otp.dto';
-import { VerifyOtpDto } from 'src/otp/dto/verify-otp.dto';
+import { CreateOtpDto } from '../otp/dto/create-otp.dto';
+import { VerifyOtpDto } from '../otp/dto/verify-otp.dto';
 
 @Controller('auth')
 export class AuthController {

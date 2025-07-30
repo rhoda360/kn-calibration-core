@@ -72,7 +72,7 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.MinLength)(8),
     (0, class_validator_1.Matches)(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
-        message: 'Password must include uppercase, lowercase, number, special character, and be at least 8 characters',
+        message: 'Password must include uppercase, lowercase, number, special characters, and be at least 8 characters',
     }),
     (0, swagger_1.ApiProperty)({
         description: 'Password for the user account',

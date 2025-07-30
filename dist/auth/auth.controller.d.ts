@@ -3,8 +3,8 @@ import { RequestWithUser } from './types/request-with-user';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { CreateOtpDto } from 'src/otp/dto/create-otp.dto';
-import { VerifyOtpDto } from 'src/otp/dto/verify-otp.dto';
+import { CreateOtpDto } from '../otp/dto/create-otp.dto';
+import { VerifyOtpDto } from '../otp/dto/verify-otp.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);

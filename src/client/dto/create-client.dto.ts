@@ -55,7 +55,7 @@ export class CreateClientDto {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     {
       message:
-        'Password must include uppercase, lowercase, number, special character, and be at least 8 characters',
+        'Password must include uppercase, lowercase, number, special characters, and be at least 8 characters',
     },
   )
   @ApiProperty({

@@ -19,9 +19,9 @@ export class OtpService {
 
     // Generate a new OTP
     const otp = generateOTP();
-    // Set the expiration time to 30 minutes from now
+    // Set the expiration time to 10 minutes from now
     const expiresIn = new Date();
-    expiresIn.setMinutes(expiresIn.getMinutes() + 30); // 30 minutes
+    expiresIn.setMinutes(expiresIn.getMinutes() + 10); // 10 minutes
 
     const createdOtp = await this.databaseService.oneTimePassword.create({
       data: {

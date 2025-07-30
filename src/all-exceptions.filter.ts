@@ -47,7 +47,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
     response.status(myResponseObject.statusCode).json(myResponseObject);
 
     // Log the error
-    this.logger.error(myResponseObject.response, AllExceptionsFilter.name);
+    this.logger.error(exception, AllExceptionsFilter.name);
 
     super.catch(exception, host);
   }

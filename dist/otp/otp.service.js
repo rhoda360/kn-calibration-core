@@ -26,7 +26,7 @@ let OtpService = class OtpService {
         await this.deleteOTPs(email);
         const otp = (0, create_otp_util_1.generateOTP)();
         const expiresIn = new Date();
-        expiresIn.setMinutes(expiresIn.getMinutes() + 30);
+        expiresIn.setMinutes(expiresIn.getMinutes() + 10);
         const createdOtp = await this.databaseService.oneTimePassword.create({
             data: {
                 email,
