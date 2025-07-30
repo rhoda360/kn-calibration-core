@@ -39,11 +39,14 @@ export class MyLoggerService extends ConsoleLogger {
   }
 
   error(message: any, stackOrContext?: string) {
-    // Custom logic before logging
-    const entry = `${stackOrContext}\t${message}`;
+    // If message is an object, convert it to JSON
+    const formattedMessage =
+      typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
 
-    // Log to file
-    //this.logToFile(entry);
+    const entry = `${stackOrContext}\t${formattedMessage}`;
+
+    // Log to file if needed
+    // this.logToFile(entry);
 
     // Call the parent error method
     super.error(entry, stackOrContext);

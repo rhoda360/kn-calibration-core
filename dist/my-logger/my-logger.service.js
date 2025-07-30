@@ -35,7 +35,8 @@ let MyLoggerService = class MyLoggerService extends common_1.ConsoleLogger {
         super.log(entry, context);
     }
     error(message, stackOrContext) {
-        const entry = `${stackOrContext}\t${message}`;
+        const formattedMessage = typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
+        const entry = `${stackOrContext}\t${formattedMessage}`;
         super.error(entry, stackOrContext);
     }
 };
